@@ -1,4 +1,4 @@
-from .requests.add_item import AddItemRequest
+from .requests.cart_request import CartRequest
 from cart.entities.shopping_cart import ShoppingCart, CartItem
 
 
@@ -7,7 +7,7 @@ class AddItemToCart:
     def __init__(self, repository):
         self.repository = repository
 
-    def run(self, request: AddItemRequest):
+    def run(self, request: CartRequest):
         if not (hasattr(request, 'product_id') and hasattr(request, 'quantity')):
             raise RuntimeError("bad request")
 

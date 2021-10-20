@@ -2,7 +2,7 @@ import pytest
 import copy
 from collections import Counter
 from cart.usecases.add_to_cart import AddItemToCart
-from cart.usecases.requests.add_item import AddItemRequest, AddItemRequestBuilder
+from cart.usecases.requests.cart_request import CartRequest, CartRequestBuilder
 
 
 def comparable_response(iterable):
@@ -21,14 +21,14 @@ class TestAddToCart:
 
     @pytest.fixture
     def empty_request(self):
-        return AddItemRequest()
+        return CartRequest()
 
     @pytest.fixture
     def new_cart_request(self):
         return self.make_request(1)
 
     def make_request(self, product, quantity=1):
-        return AddItemRequestBuilder.a_request().with_product(
+        return CartRequestBuilder.a_request().with_product(
             product).with_quantity(quantity).build()
 
     def test_when_empty_request_should_raise_error(self, usecase, empty_request):

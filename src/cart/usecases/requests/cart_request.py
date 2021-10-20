@@ -1,15 +1,16 @@
-class AddItemRequest:
+class CartRequest:
+    cart_id: int
     product_id: int
     quantity: int
 
 
-class AddItemRequestBuilder:
+class CartRequestBuilder:
     product_id = 1
     quantity = 1
 
     @staticmethod
     def a_request():
-        return AddItemRequestBuilder()
+        return CartRequestBuilder()
 
     def with_product(self, product_id):
         self.product_id = product_id
@@ -20,7 +21,7 @@ class AddItemRequestBuilder:
         return self
 
     def build(self):
-        req = AddItemRequest()
+        req = CartRequest()
         req.product_id = self.product_id,
         req.quantity = self.quantity
         return req
