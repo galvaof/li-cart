@@ -1,7 +1,7 @@
 import pytest
 import copy
 from collections import Counter
-from cart.usecases.add_item_to_cart import AddItemToCart
+from cart.usecases.add_to_cart import AddItemToCart
 from cart.usecases.requests.add_item import AddItemRequest, AddItemRequestBuilder
 from cart.repositories.cart_repo import CartRepository
 
