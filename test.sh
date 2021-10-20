@@ -1,1 +1,1 @@
-docker-compose exec backend python -m pytest
+docker-compose exec backend python -m pytest -v
