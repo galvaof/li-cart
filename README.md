@@ -17,4 +17,3 @@ Sample shopping cart web api in python with FastAPI
 > source integration.sh
 ```
 - Navigate to [http:/localhost:8005/docs](http:/localhost:8005/docs) to see the docs
-- 
