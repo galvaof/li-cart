@@ -21,7 +21,7 @@ class GetCartTotals:
         
         total = (1-cart.discount_ratio) * subtotal
 
-        dto = CartTotals
+        dto = CartTotals()
         dto.subtotal = subtotal
         dto.total = total 
 

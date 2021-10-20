@@ -1,8 +1,10 @@
 from fastapi import FastAPI
+from cart.web.router import router
 
-app = FastAPI()
 
+def create_application():
+    client = FastAPI()
+    client.include_router(router)
+    return client
 
-@app.get("/")
-async def home():
-    return {"Hello": "World"}
+app = create_application()

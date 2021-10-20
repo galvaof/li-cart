@@ -1,1 +1,1 @@
-docker-compose exec backend python -m pytest -v
+docker-compose exec backend python -m pytest -k 'not integration'
