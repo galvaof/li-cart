@@ -3,7 +3,6 @@ import copy
 from collections import Counter
 from cart.usecases.add_to_cart import AddItemToCart
 from cart.usecases.requests.add_item import AddItemRequest, AddItemRequestBuilder
-from cart.repositories.cart_repo import CartRepository
 
 
 def comparable_response(iterable):
@@ -17,12 +16,8 @@ def contains_in_any_order(actual, expected):
 class TestAddToCart:
 
     @pytest.fixture
-    def repository(self):
-        return CartRepository()
-
-    @pytest.fixture
-    def usecase(self, repository):
-        return AddItemToCart(repository)
+    def usecase(self, cart_repository):
+        return AddItemToCart(cart_repository)
 
     @pytest.fixture
     def empty_request(self):

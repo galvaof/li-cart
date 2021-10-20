@@ -17,14 +17,12 @@ class AddItemToCart:
         else:
             cart = self.repository.get(request.cart_id)
 
-        if request.product_id not in map(lambda x: x.product_id, cart.items):
+        if not cart.has_item(request.product_id):
             item = CartItem()
             item.product_id = request.product_id
             item.quantity = request.quantity
-
         else:
-            item = next(x for x in cart.items if x.product_id ==
-                        request.product_id)
+            item = cart.get_item(request.product_id)
             cart.items.remove(item)
             item.quantity += request.quantity
 
