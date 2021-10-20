@@ -7,8 +7,6 @@ class ClearCart:
 
     def run(self, cart_id):
         cart = self.repository.get(cart_id)
-        if not cart:   
-            raise RuntimeError
 
         cart.clear_items()
 

@@ -8,6 +8,8 @@ class CartRepository:
         return self.next_id
 
     def get(self, id):
+        if id not in self.data.keys():
+            raise RuntimeError
         return self.data.get(id)
 
     def add(self, cart):

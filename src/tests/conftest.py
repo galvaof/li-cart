@@ -10,6 +10,8 @@ def cart_repository():
 def non_empty_cart_repository(cart_repository):
     one_cart = ShoppingCart()
     one_cart.id = 1
+    one_cart.voucher = "10OFF"
+    one_cart.discount_ratio = 0.1
 
     item = CartItem
     item.product_id = 1

@@ -8,6 +8,8 @@ class CartItem:
 
 class ShoppingCart:
     id: int
+    voucher: str
+    discount_ratio: float
 
     @property
     def items(self):
@@ -16,6 +18,8 @@ class ShoppingCart:
     def __init__(self):
         self._items = []
         self.inventory = InventoryService()
+        self.voucher = None
+        self.discount_ratio = 0
 
     def get_item(self, product_id):
         if not self.has_item(product_id):
