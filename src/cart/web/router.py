@@ -1,3 +1,5 @@
+from fastapi import FastAPI, HTTPException
+from fastapi import  HTTPException
 from cart.usecases.retrieve_cart import RetrieveCart
 from fastapi.params import Depends
 from fastapi import APIRouter
@@ -27,39 +29,50 @@ def get_repo() -> CartRepository:
 async def create_cart(payload: CartItemRequest, repo = Depends(get_repo)) -> ShoppingCartSchema:
     usecase = AddItemToCart(repo)
     req = CartRequestBuilder.a_request().with_product(payload.product_id).with_quantity(payload.quantity).build()
-    dto = usecase.run(req)
-    return {
-        "id": dto.id,
-        "items": list(dto.items),
-        "voucher": dto.voucher,
-        "discount": dto.discount_ratio,
-    }
+    try: 
+        dto = usecase.run(req)
+        return {
+            "id": dto.id,
+            "items": list(dto.items),
+            "voucher": dto.voucher,
+            "discount": dto.discount_ratio,
+        }
+    except:
+        raise HTTPException(status_code=304, detail="Not enough inventory")
 
-@router.post("/{id}/", status_code=201)
+
+@router.post("/{id}/", status_code=202)
 async def add_to_cart(id: int, payload: CartItemRequest, repo = Depends(get_repo)) -> ShoppingCartSchema:
     usecase = AddItemToCart(repo)
     req = CartRequestBuilder.a_request().oncart(id).with_product(payload.product_id).with_quantity(payload.quantity).build()
-    dto = usecase.run(req)
-    return {
-        "id": dto.id,
-        "items": list(dto.items),
-        "voucher": dto.voucher,
-        "discount": dto.discount_ratio,
-    }
+    try: 
+        dto = usecase.run(req)
+        return {
+            "id": dto.id,
+            "items": list(dto.items),
+            "voucher": dto.voucher,
+            "discount": dto.discount_ratio,
+        }
+    except:
+        raise HTTPException(status_code=304, detail="Not enough inventory")
 
-@router.patch("/{id}/", status_code=201)
+@router.patch("/{id}/", status_code=202)
 async def update_cart(id: int, payload: CartItemRequest, repo = Depends(get_repo)) -> ShoppingCartSchema:
     usecase = UpdateCartItem(repo)
     req = CartRequestBuilder.a_request().oncart(id).with_product(payload.product_id).with_quantity(payload.quantity).build()
-    dto = usecase.run(req)
-    return {
+    try:
+        dto = usecase.run(req)
+        return {
         "id": dto.id,
         "items": list(dto.items),
         "voucher": dto.voucher,
         "discount": dto.discount_ratio,
     }
+    except:
+        raise HTTPException(status_code=304, detail="Not enough inventory")
+    
 
-@router.delete("/{id}/", status_code=201)
+@router.delete("/{id}/", status_code=202)
 async def delete_from_cart(id: int, payload: RemoveItemRequest, repo = Depends(get_repo)) -> ShoppingCartSchema:
     usecase = RemoveFromCart(repo)
     dto = usecase.run(id,payload.product_id)
@@ -70,7 +83,7 @@ async def delete_from_cart(id: int, payload: RemoveItemRequest, repo = Depends(g
         "discount": dto.discount_ratio,
     }
 
-@router.delete("/{id}/all", status_code=201)
+@router.delete("/{id}/all", status_code=202)
 async def clear_cart(id: int, repo = Depends(get_repo)) -> ShoppingCartSchema:
     usecase = ClearCart(repo)
     dto = usecase.run(id)
@@ -92,7 +105,7 @@ async def retrieve_cart(id: int, repo = Depends(get_repo)) -> ShoppingCartSchema
         "discount": dto.discount_ratio,
     }
 
-@router.post("/{id}/voucher", status_code=201)
+@router.post("/{id}/voucher", status_code=202)
 async def apply_voucher(id: int, payload: VoucherRequest, repo = Depends(get_repo)) -> ShoppingCartSchema:
     usecase = ApplyVoucher(repo)
     dto = usecase.run(id, payload.voucher)
