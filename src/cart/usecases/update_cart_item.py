@@ -10,10 +10,10 @@ class UpdateCartItem:
             raise RuntimeError
 
         item = cart.get_item(request.product_id)
-        cart.items.remove(item)
+        cart.remove(item)
 
         item.quantity = request.quantity
-        cart.items.append(item)
+        cart.add(item)
 
         self.repository.add(cart)
         return cart

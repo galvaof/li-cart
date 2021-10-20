@@ -9,7 +9,7 @@ class RemoveFromCart:
             raise RuntimeError
         
         item = cart.get_item(product_id)
-        cart.items.remove(item)
+        cart.remove(item)
         self.repository.add(cart)
         
         return cart

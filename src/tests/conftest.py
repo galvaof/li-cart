@@ -14,7 +14,7 @@ def non_empty_cart_repository(cart_repository):
     item = CartItem
     item.product_id = 1
     item.quantity = 1
-    one_cart.items.append(item)
+    one_cart.add(item)
 
     cart_repository.add(one_cart)
     return cart_repository

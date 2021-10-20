@@ -6,6 +6,7 @@ class AddItemToCart:
 
     def __init__(self, repository):
         self.repository = repository
+        
 
     def run(self, request: CartRequest):
         if not (hasattr(request, 'product_id') and hasattr(request, 'quantity')):
@@ -23,10 +24,12 @@ class AddItemToCart:
             item.quantity = request.quantity
         else:
             item = cart.get_item(request.product_id)
-            cart.items.remove(item)
+            cart.remove(item)
             item.quantity += request.quantity
 
-        cart.items.append(item)
+        
+        
+        cart.add(item)
         self.repository.add(cart)
 
         return cart

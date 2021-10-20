@@ -87,3 +87,9 @@ class TestAddToCart:
         assert len(actual_response.items) == 2
         assert contains_in_any_order(actual_response.items, [
                                      new_cart_request, second_request])
+
+
+    def test_when_not_enough_inventory(self, usecase, new_cart_request):
+        new_cart_request.quantity = 5
+        with pytest.raises(RuntimeError):
+            usecase.run(new_cart_request)

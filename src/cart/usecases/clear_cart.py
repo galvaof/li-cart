@@ -10,7 +10,7 @@ class ClearCart:
         if not cart:   
             raise RuntimeError
 
-        cart.items.clear()
+        cart.clear_items()
 
         self.repository.add(cart)
 
